@@ -1,19 +1,5 @@
-import { GET_LOGS, SET_LOADING, LOGS_ERROS } from "./types";
+import { GET_LOGS, SET_LOADING, LOGS_ERROS, ADD_LOG } from "./types";
 
-// export const getLogs = () => {
-//   return async (dispatch) => {
-//     setLoading();
-
-//     const res = await fetch("/logs");
-//     const data = await res.json();
-
-//     dispatch({
-//       type: GET_LOGS,
-//       payload: data,
-//     });
-//   };
-// };
-//* reactoring top function
 // get logs from server
 export const getLogs = () => async (dispatch) => {
   try {
@@ -34,8 +20,35 @@ export const getLogs = () => async (dispatch) => {
   }
 };
 
+//ADD NEW LOG
+export const addLog = (log) => async (dispatch) => {
+  try {
+    setLoading();
+
+    const res = await fetch("/logs", {
+      method: "POST",
+      body: JSON.stringify(log),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await res.json();
+
+    dispatch({
+      type: ADD_LOG,
+      payload: data,
+    });
+  } catch (err) {
+    dispatch({
+      type: LOGS_ERROS,
+      payload: err.responce.data,
+    });
+  }
+};
+
 //* SETS LOADING TO TRUE
-export const seLoading = () => {
+export const setLoading = () => {
   return {
     type: SET_LOADING,
   };

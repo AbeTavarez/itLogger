@@ -3,14 +3,15 @@ import { connect } from "react-redux";
 import LogItem from "./LogItem";
 import Preloader from "../layout/Preloader";
 import PropTypes from "prop-types";
+import { getLogs } from "../../actions/logActions";
 
-const Logs = ({ log: { logs, loading } }) => {
+const Logs = ({ log: { logs, loading }, getLogs }) => {
   useEffect(() => {
     getLogs();
     // eslint-disable-next-line
   }, []);
 
-  if (loading) {
+  if (loading || logs === null) {
     return <Preloader />;
   }
   return (
@@ -28,8 +29,9 @@ const Logs = ({ log: { logs, loading } }) => {
 };
 
 //makes sure Logs is an object
-Logs.PropTypes = {
+Logs.propTypes = {
   log: PropTypes.object.isRequired,
+  getLogs: PropTypes.func.isRequired,
 };
 
 // brings in the whole state and then gets descructored at the  top
@@ -37,4 +39,4 @@ const mapStateToProps = (state) => ({
   log: state.log,
 });
 
-export default connect(mapStateToProps)(Logs);
+export default connect(mapStateToProps, { getLogs })(Logs);
