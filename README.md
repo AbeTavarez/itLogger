@@ -1,6 +1,4 @@
-README EXAMPLE
-
-# Project Title
+# IT-Logger
 
 One Paragraph of project description goes here
 
