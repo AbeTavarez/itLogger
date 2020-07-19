@@ -14,6 +14,7 @@ import { GET_LOGS, SET_LOADING, LOGS_ERROS } from "./types";
 //   };
 // };
 //* reactoring top function
+// get logs from server
 export const getLogs = () => async (dispatch) => {
   try {
     setLoading();
